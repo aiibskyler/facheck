@@ -1,6 +1,7 @@
+python 3.6.10
 `pip install cmake==3.18.0`
 
-`pip install dlib==19.20`
+`pip install dlib==19.8.1`
 
 `pip install Pillow==7.2.0`
 
