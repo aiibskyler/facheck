@@ -17,6 +17,11 @@ def face(path):
 
     # 打开摄像头，0表示内置摄像头
     video_capture = cv2.VideoCapture(0)
+    # 尝试设置采集分辨率
+    video_capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc('M', 'J', 'P', 'G'))
+    video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    video_capture.set(cv2.CAP_PROP_FPS, 23)
     process_this_frame = True
     while True:
         ret, frame = video_capture.read()
