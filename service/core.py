@@ -16,7 +16,7 @@ def face(path):
     print(known_encodings)
 
     # 打开摄像头，0表示内置摄像头
-    video_capture = cv2.VideoCapture(0)
+    video_capture = cv2.VideoCapture(1)
     # 尝试设置采集分辨率
     video_capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc('M', 'J', 'P', 'G'))
     video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -32,7 +32,7 @@ def face(path):
             face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)  # 获得人脸特征值
             face_names = []  # 存储出现在画面中人脸的名字
             for face_encoding in face_encodings:
-                matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.5)
+                matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.4)
                 if True in matches:
                     first_match_index = matches.index(True)
                     name = known_names[first_match_index]

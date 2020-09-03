@@ -15,28 +15,27 @@ def face_validate(path, image):
         known_encodings.append(image_face_encoding)
     print(known_encodings)
 
-    # 打开摄像头，0表示内置摄像头
-    while True:
-        face_locations = face_recognition.face_locations(image)  # 获得所有人脸位置
-        face_encodings = face_recognition.face_encodings(image, face_locations)  # 获得人脸特征值
-        face_names = []  # 存储出现在画面中人脸的名字
-        for face_encoding in face_encodings:
-            matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.5)
-            if True in matches:
-                first_match_index = matches.index(True)
-                name = known_names[first_match_index]
-            else:
-                name = "unknown"
-            face_names.append(name)
+    # while True:
+    face_locations = face_recognition.face_locations(image)  # 获得所有人脸位置
+    face_encodings = face_recognition.face_encodings(image, face_locations)  # 获得人脸特征值
+    face_names = []  # 存储出现在画面中人脸的名字
+    for face_encoding in face_encodings:
+        matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.5)
+        if True in matches:
+            first_match_index = matches.index(True)
+            name = known_names[first_match_index]
+        else:
+            name = "unknown"
+        face_names.append(name)
+    print(face_names)
 
         # 将捕捉到的人脸显示出来
-        for (top, right, bottom, left), name in zip(face_locations, face_names):
-            cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)  # 画人脸矩形框
-            # 加上人名标签
-            cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-            font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-        cv2.imshow('frame', image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
+    # for (top, right, bottom, left), name in zip(face_locations, face_names):
+    #     cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)  # 画人脸矩形框
+    #     # 加上人名标签
+    #     cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+    #     font = cv2.FONT_HERSHEY_DUPLEX
+    #     cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+    # cv2.imshow('frame', image)
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break

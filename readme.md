@@ -11,3 +11,4 @@ python 3.6.10
 
 `pip install flask==1.1.2`
 
+python3 face_check_controller.py
