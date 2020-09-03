@@ -3,17 +3,13 @@ import cv2
 import os
 
 
-def face_validate(path, image):
-    # 存储知道人名列表
-    known_names = []
+def face_validate(base_img, image):
     # 存储知道的特征值
     known_encodings = []
-    for image_name in os.listdir(path):
-        load_image = face_recognition.load_image_file(path + image_name)  # 加载图片
-        image_face_encoding = face_recognition.face_encodings(load_image)[0]  # 获得128维特征值
-        known_names.append(image_name.split(".")[0])
-        known_encodings.append(image_face_encoding)
-    print(known_encodings)
+    load_image = face_recognition.load_image_file(base_img)  # 加载图片
+    image_face_encoding = face_recognition.face_encodings(load_image)[0]  # 获得128维特征值
+    known_encodings.append(image_face_encoding)
+    # print(known_encodings)
 
     # while True:
     face_locations = face_recognition.face_locations(image)  # 获得所有人脸位置
@@ -22,12 +18,9 @@ def face_validate(path, image):
     for face_encoding in face_encodings:
         matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.5)
         if True in matches:
-            first_match_index = matches.index(True)
-            name = known_names[first_match_index]
+            return True
         else:
-            name = "unknown"
-        face_names.append(name)
-    print(face_names)
+            return False
 
         # 将捕捉到的人脸显示出来
     # for (top, right, bottom, left), name in zip(face_locations, face_names):
